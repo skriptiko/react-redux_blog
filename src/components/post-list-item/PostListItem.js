@@ -1,16 +1,3 @@
-// import React from 'react';
-
-// const PostListItem = ({ post }) => {
-//   const { title, body } = post;
-//   return (
-//     <div>
-//       <span>{title}</span>
-//       <span>{body}</span>
-//     </div>
-//   );
-// };
-
-// export default PostListItem;
 
 import React from 'react';
 import PropTypes from 'prop-types';

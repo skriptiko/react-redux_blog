@@ -38,10 +38,6 @@ class PostList extends Component {
     });
   }
 
-  handleClickAway() {
-    console.log('eeeeeeeee')
-  }
-
   render () {
     const { posts, classes, loading } = this.props;
 

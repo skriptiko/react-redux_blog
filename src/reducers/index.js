@@ -15,19 +15,24 @@ const reducer = (state = initialState, action) => {
 				posts: action.data,
 				loading: false
 			}
+		case 'COMMENTS_REQUESTED':
+			return {
+				posts: state.data,
+				loading: true
+			}
+		case 'COMMENTS_LOADED':
+			state.posts.forEach((item) => {
+				if (item.id === action.data.id) {
+					item.comments = action.data.comments;
+				}
+			});
+			return {
+				posts: state.posts,
+				loading: false
+			}
 		default:
 			return state;
 	}
 }
 
 export default reducer;
-
-// import updatePostList from './post-list';
-
-// const reducer = (state, action) => {
-//   return {
-//     postList: updatePostList(state, action),
-//   };
-// };
-
-// export default reducer;

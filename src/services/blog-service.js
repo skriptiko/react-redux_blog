@@ -14,6 +14,10 @@ export default class BlogService {
 		return await this.getResource('posts/');
 	}
 
+	async getCommentsByPostId(id) {
+		return await this.getResource(`posts/${id}?_embed=comments`);
+	}
+
 	// getListPosts() {
 	// 	return [
 	// 		{id: 1, title: 'Title --- 1', body: 'body --- 1'},
