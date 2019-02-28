@@ -38,12 +38,11 @@ function PostListItem(props) {
   return (
       <Paper className={classes.root} elevation={1}>
         <Typography variant="h5" component="h3">
-          <Link to="/cart" params={{props: 'ddddddd'}}> {post.title}</Link>
+          <Link to={`/posts/:${post.id}`}> {post.title}</Link>
         </Typography>
         <Typography component="p">
           {post.body}
         </Typography>
-       
       </Paper>
   );
 }

@@ -1,7 +1,9 @@
 import HomePage from './home-page.js';
-import CartPage from './cart-page.js';
+import PostPage from './post-page.js';
+import ListPage from './list-page.js';
 
 export {
   HomePage,
-  CartPage
+  PostPage,
+  ListPage
 };
