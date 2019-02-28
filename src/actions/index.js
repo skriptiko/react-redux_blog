@@ -19,8 +19,16 @@ const commentsLoaded = (comments) => {
   };
 };
 
+const postOpen = (postId) => {
+  return {
+    type: 'POST_OPEN',
+    postId: postId
+  };
+};
+
 export {
   postsLoaded,
   postRequasted,
-  commentsLoaded
+  commentsLoaded,
+  postOpen
 };

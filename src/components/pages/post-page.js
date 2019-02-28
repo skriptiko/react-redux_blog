@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 
 import { compose } from '../../utils';
 
-import { commentsLoaded } from '../../actions';
+import { commentsLoaded, postOpen } from '../../actions';
 
 import { withBlogService } from '../hoc';
 import Spinner from '../spinner';
@@ -19,39 +19,49 @@ const styles = theme => ({
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
+    margin: theme.spacing.unit * 2,
   },
 });
 
 class PostPage extends Component {
 
-
   componentDidMount() {
     const { blogService, match, posts } = this.props;
     const postId = parseInt(match.params.postId.replace(':', ''), 10);
-    const data = blogService.getCommentsByPostId(postId).then((post) => {
-      this.props.commentsLoaded(post);
-      console.log('получили комментарии', post)
-    });
+    const post = posts.filter(post => postId === post.id)[0];
+    const isLoaded = ('comments' in post) || null;
 
+    if (isLoaded) {
+    	this.props.postOpen(post);
+    } else {
+    	blogService.getCommentsByPostId(postId).then((post) => {
+	    	this.props.commentsLoaded(post);
+	    });
+    }
   }
   render() {
-  	const { classes, loading } = this.props;
-
-  	if (loading) {
+  	const { classes, loading, posts, postId } = this.props;
+  	const post = posts.filter(post => postId === post.id)[0];
+  	if (loading || !post) {
   		return <Spinner />
   	}
 
+  	const commmentList = ('comments' in post) ? <CommentsList comments={post.comments} /> : null;
+
   	return (
-  		<div className='align-content'>
+  		<div className='comment-content'>
 	    	<Paper className={classes.root} elevation={1}>
 	    	  <Typography variant="h5" component="h3">
-	    	    This is a sheet of paper.
+	    	    {post.title}
 	    	  </Typography>
 	    	  <Typography component="p">
-	    	    Paper can be used to build surface or other elements for your application.
+	    	    {post.body}
 	    	  </Typography>
-	    	 
+	    	  
 	    	</Paper> 
+	    	<Paper className={classes.root} elevation={1}>
+	    		{commmentList}
+	    	</Paper>
 	    </div>
 	);
   } 
@@ -61,15 +71,17 @@ PostPage.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({ posts, loading }) => {
+const mapStateToProps = ({ posts, loading, postId }) => {
   return { 
     posts: posts,
-    loading: loading
+    loading: loading,
+    postId: postId
   };
 }
 
 const mapDispatchToProps = {
   commentsLoaded,
+  postOpen
 };
 
 export default compose(

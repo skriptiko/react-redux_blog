@@ -23,10 +23,10 @@ html, body {
     align-items: center;
 }
 
-.align-content {
+.comment-content {
 	width: 100%;
 	display: flex;
     justify-content: center;
-    padding: 10px;
+    flex-direction: column;
 }
 
