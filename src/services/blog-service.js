@@ -18,10 +18,20 @@ export default class BlogService {
 		return await this.getResource(`posts/${id}?_embed=comments`);
 	}
 
-	// getListPosts() {
-	// 	return [
-	// 		{id: 1, title: 'Title --- 1', body: 'body --- 1'},
-	// 		{id: 2, title: 'Title --- 2', body: 'body --- 2'},
-	// 	];
-	// }
+	async setNewComment(postId, text) {
+		const rawResponse = await fetch(
+		`${this._apiBase}/comments`,
+		{
+    		method: 'POST',
+    		headers: {
+    			'Accept': 'application/json',
+    			'Content-Type': 'application/json'
+    		},
+    
+    		body: JSON.stringify({postId: postId, body: text})
+    	});
+  		return await rawResponse.json();
+	}
+
+
 }

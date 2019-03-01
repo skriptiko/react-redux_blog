@@ -31,18 +31,10 @@ const reducer = (state = initialState, action) => {
 					item.comments = action.data.comments;
 				}
 			});
-			console.log(action.data.id)
 			return {
 				posts: state.posts,
 				loading: false,
 				postId: action.data.id
-			}
-		case 'POST_OPEN':
-
-			return {
-				posts: state.posts,
-				loading: false,
-				postId: action.postId
 			}
 		default:
 			return state;

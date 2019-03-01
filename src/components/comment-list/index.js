@@ -1,3 +1,7 @@
-import CommentList from './CommentList.js';
+import CommentsList from './CommentList.js';
+import CommentAdd from './CommentAdd.js';
 
-export default CommentList;
+export {
+	CommentsList,
+	CommentAdd
+};
