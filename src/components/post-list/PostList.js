@@ -22,7 +22,7 @@ class PostList extends Component {
 
   render () {
     const { posts, loading } = this.props;
-console.log(posts)
+
     if (loading) {
       return <Spinner />
     }

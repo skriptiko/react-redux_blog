@@ -50,6 +50,21 @@ const reducer = (state = initialState, action) => {
 				postId: action.data.id,
 				isRedirectToPostList: true
 			}
+
+		case 'ADD_NEW_COMMENT':
+			state.posts.forEach((item) => {
+				if (item.id === action.data.postId) {
+					if (!item.comments) item.comments = [];
+					item.comments.push(action.data);
+				}
+			});
+			console.log('44444444444', state.posts, action.data)
+			return {
+				posts: state.posts,
+				loading: false,
+				postId: action.data.postId,
+				isRedirectToPostList: false
+			}
 		default:
 			return state;
 	}

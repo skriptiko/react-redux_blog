@@ -1,0 +1,12 @@
+.comment-list-cont {
+	margin: 10px 0;
+}
+
+.comment-list-cont .list-group-item {
+	margin: 2px 0;
+	padding: 2px;
+}
+
+.comment-list-cont .card-body {
+	padding: 2px;
+}

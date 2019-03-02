@@ -1,8 +1,9 @@
 import React from 'react';
-import PostItem from '../post-item';
+import Post from '../post';
 
-const PostPage = () => {
-  return <PostItem />;
+const PostPage = ({match}) => {
+
+  return <Post match={match} />;
 };
 
 export default PostPage;

@@ -2,30 +2,23 @@
 import React, { Component } from 'react';
 import CommentListItem from '../comment-list-item';
 
-import CommentAdd from './CommentAdd.js';
-
 import './CommentList.css';
 
 class CommentList extends Component {
 
-  handleChange = (event) => {
-    console.log(event)
-  };
-
   render () {
     const { comments } = this.props;
     return (
-    	<div lassName='comment-list-container'>
+    	<div className='list-group comment-list-cont'>
 	    	{
 	          comments.map((comment) => {
 	            return (
-	              <div key={comment.id} > 
+	              <div key={comment.id} className="list-group-item"> 
 	                <CommentListItem comment={comment} />
 	              </div>
 	            )
 	          })
 	        }
-	    	<CommentAdd handleChange= {this.handleChange}/> 
     	</div>
     );
   }
