@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { HomePage, PostPage, ListPage } from '../pages';
+import { HomePage, ListPage, AddPage } from '../pages';
 
 const App = () => {
   return (
@@ -14,6 +14,11 @@ const App = () => {
         <Route
           path='/posts'
           component={ListPage}
+          />
+
+        <Route
+          path='/add'
+          component={AddPage}
           />
       </Switch>
     </main>

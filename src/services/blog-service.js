@@ -27,11 +27,37 @@ export default class BlogService {
     			'Accept': 'application/json',
     			'Content-Type': 'application/json'
     		},
-    
     		body: JSON.stringify({postId: postId, body: text})
     	});
   		return await rawResponse.json();
 	}
 
+	async setNewPost (title, body) {
 
+		const rawResponse = await fetch(
+		`${this._apiBase}/posts`,
+		{
+    		method: 'POST',
+    		headers: {
+    			'Content-Type': 'application/json'
+    		},
+    		body: JSON.stringify({title, body})
+
+    	});
+  		return await rawResponse.json();
+	}
+
+	async deletePost (id) {
+		const rawResponse = await fetch(
+		`${this._apiBase}/posts/${id}`,
+		{
+    		method: 'DELETE',
+    		headers: {
+    			'Content-Type': 'application/json'
+    		},
+    		data: ''
+
+    	});
+  		return await rawResponse.json();
+	}
 }

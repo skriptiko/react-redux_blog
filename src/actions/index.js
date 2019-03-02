@@ -19,8 +19,16 @@ const commentsLoaded = (comments) => {
   };
 };
 
+const addNewPost = (post) => {
+  return {
+    type: 'ADD_NEW_POST',
+    data: post
+  };
+};
+
 export {
   postsLoaded,
   postRequasted,
-  commentsLoaded
+  commentsLoaded,
+  addNewPost
 };

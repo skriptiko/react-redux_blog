@@ -1,76 +1,67 @@
 import React, { Component } from 'react';
 
+import { connect } from 'react-redux';
+import { compose } from '../../utils';
+
+import { withBlogService } from '../hoc';
+import { addNewPost } from '../../actions';
+
+import { Link, Redirect } from 'react-router-dom';
+
 import './PostAdd.css';
 
 class PostAdd extends Component {
 
-  state = {
-    title: '',
-    text: ''
-  }
+  handleSubmit(event) {
+    event.preventDefault();
 
+    const title = event.target.elements[0].value;
+    const body = event.target.elements[1].value;
+    event.target.elements[0].value = '';
+    event.target.elements[1].value = '';
 
-  handleInput(e) {
-    const obj = {};
-    let key = (e.target.id === 'title-input') ? 'title' : 'text'
-    obj[key] = e.target.value;
-    this.setState(obj);
-  }
+    const { blogService } = this.props;
 
-  handleClick(e) {
-    const { handleForm } = this.props;
-    const data = (e.target.id === 'btn-add') ? this.state : null;
-    handleForm(data);
-    this.setState({
-      title: '',
-      text: ''
+    blogService.setNewPost(title, body).then((post) => {
+      this.props.addNewPost(post);
     });
   }
 
   render() {
-
- 
+    const { isRedirectToPostList } = this.props;
+    if (isRedirectToPostList === true) {
+        return <Redirect to="/posts" />
+    }
     return (
-      <div className="post-add-cont">
-        <div className="post-add-form">
-          <div className="form-group">
-            <label htmlFor="title-input">Title</label>
-            <input
-              value={this.state.title}
-              onChange={this.handleInput.bind(this)}
-              type="text"
-              className="form-control"
-              id="title-input"
-              aria-describedby="emailHelp" 
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="text-input">Text</label>
-            <textarea
-              value={this.state.text}
-              onChange={this.handleInput.bind(this)}
-              className="form-control"
-              id="text-input"
-              rows="3"
-            ></textarea>
-          </div>
+      <form onSubmit={this.handleSubmit.bind(this)}>
+        <div className="form-group">
+          <label htmlFor="formControl">Title</label>
+          <input type="text" className="form-control" id="formControl" />
         </div>
-        <div className="post-add-btn"> 
-          <button
-            onClick={this.handleClick.bind(this)}
-            className="btn btn-secondary"
-            id="btn-add"
-          >Add Post</button>
-          <button
-            onClick={this.handleClick.bind(this)}
-            className="btn btn-secondary"
-            id="btn-cansel"
-          >Cancel</button>
+        <div className="form-group">
+          <label htmlFor="formControlTextarea">Body</label>
+          <textarea className="form-control" id="formControlTextarea" rows="3"></textarea>
         </div>
-      </div>
+        <div className="form-group post-add-btn">
+          <button type="submit" className="btn btn-primary">Submit</button>
+          <Link to={`/posts`}> <button className="btn btn-secondary">Cansel</button></Link>
+        </div>
+      </form>
     );
   }
-  
 }
 
-export default PostAdd;
+const mapStateToProps = ( {isRedirectToPostList} ) => {
+  return {
+    isRedirectToPostList
+  };
+}
+
+const mapDispatchToProps = {
+  addNewPost
+};
+
+export default compose(
+  withBlogService(),
+  connect(mapStateToProps, mapDispatchToProps)
+)(PostAdd);

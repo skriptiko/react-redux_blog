@@ -1,7 +1,8 @@
 const initialState = {
 	posts: [],
 	loading: true,
-	postId: null
+	postId: null,
+	isRedirectToPostList: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -11,19 +12,22 @@ const reducer = (state = initialState, action) => {
 			return {
 				posts: [],
 				loading: true,
-				postId: null
+				postId: null,
+				isRedirectToPostList: false
 			}
 		case 'POSTS_LOADED':
 			return {
 				posts: action.data,
 				loading: false,
-				postId: null
+				postId: null,
+				isRedirectToPostList: false
 			}
 		case 'COMMENTS_REQUESTED':
 			return {
 				posts: state.data,
 				loading: true,
-				postId: null
+				postId: null,
+				isRedirectToPostList: false
 			}
 		case 'COMMENTS_LOADED':
 			state.posts.forEach((item) => {
@@ -34,7 +38,17 @@ const reducer = (state = initialState, action) => {
 			return {
 				posts: state.posts,
 				loading: false,
-				postId: action.data.id
+				postId: action.data.id,
+				isRedirectToPostList: false
+			}
+
+		case 'ADD_NEW_POST':
+			state.posts.push(action.data);
+			return {
+				posts: state.posts,
+				loading: false,
+				postId: action.data.id,
+				isRedirectToPostList: true
 			}
 		default:
 			return state;
